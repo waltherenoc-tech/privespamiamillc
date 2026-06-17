@@ -1,0 +1,1236 @@
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privé Spa Miami — Santuario de Bienestar</title>
+  <meta name="description" content="Privé Spa Miami — Spa a domicilio en Miami, FL. Llevamos el bienestar hasta ti: masaje, drenaje linfático, reflexología en tu hogar u hotel. Reserva: (305) 990-7274.">
+  <meta name="keywords" content="spa miami, masajes miami, drenaje linfático miami, reflexología miami, masaje relajación miami">
+  <meta property="og:title" content="Privé Spa Miami — Santuario de Bienestar">
+  <meta property="og:description" content="Reserva tu tratamiento de bienestar en Miami, FL. Drenaje linfático, reflexología, masajes terapéuticos.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.privespamiami.com">
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+ 
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bone:   '#E8E0CE',
+            cream:  '#F4EEDF',
+            paper:  '#FBF7EC',
+            ink:    '#1B1813',
+            clay:   '#A04A2A',
+            claylt: '#C26A45',
+            sage:   '#6B7355',
+            sagedk: '#4E553F',
+            bronze: '#8B6E47',
+            mute:   '#6F6A5F',
+            line:   '#C9BEA5',
+            gold:   '#C5A55A',
+            goldlt: '#D4BB7C',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            sans:    ['Manrope', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+ 
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    /* ── Animated background ── */
+    @keyframes spaDrift {
+      0%   { transform: scale(1.00) translate(  0%,     0%); }
+      12%  { transform: scale(1.06) translate(-1.8%,  -1.2%); }
+      25%  { transform: scale(1.10) translate(-0.6%,  -2.8%); }
+      38%  { transform: scale(1.07) translate( 1.2%,  -2.0%); }
+      50%  { transform: scale(1.05) translate( 2.2%,   0.4%); }
+      63%  { transform: scale(1.08) translate( 1.0%,   2.2%); }
+      75%  { transform: scale(1.06) translate(-0.8%,   1.6%); }
+      88%  { transform: scale(1.03) translate(-1.5%,   0.2%); }
+      100% { transform: scale(1.00) translate(  0%,     0%); }
+    }
+ 
+    #bg-canvas {
+      position: fixed;
+      inset: -6%;
+      width: 112%;
+      height: 112%;
+      z-index: -1;
+      background-image: url('https://res.cloudinary.com/dd3tduggc/image/upload/v1781645404/spa-treatments-3000-x-2000-wallpaper-upcx9krpsye13glr_mfdbzl.jpg');
+      background-size: cover;
+      background-position: center;
+      animation: spaDrift 24s ease-in-out infinite;
+      will-change: transform;
+      transform-origin: center center;
+    }
+ 
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: #1B1813;
+      background: transparent;
+      -webkit-font-smoothing: antialiased;
+    }
+ 
+    /* Each section sits on a translucent layer so the fixed bg shows through subtly */
+    section, footer, .marquee-bg, nav {
+      position: relative;
+    }
+    /* Light sections — warm cream overlay */
+    .bg-paper  { background: rgba(251, 247, 236, 0.92) !important; }
+    .bg-bone   { background: rgba(232, 224, 206, 0.90) !important; }
+    /* Dark sections — deep ink overlay */
+    .bg-ink    { background: rgba(27, 24, 19, 0.91) !important; }
+    .bg-sagedk { background: rgba(78, 85, 63, 0.91) !important; }
+    /* Marquee strip */
+    .marquee-strip { background: rgba(27, 24, 19, 0.93) !important; }
+    .font-display { font-family: 'Fraunces', serif; }
+    .font-display-i { font-family: 'Fraunces', serif; font-style: italic; }
+ 
+ 
+    /* ── STEAM / VAPOR EFFECT ── */
+    #steam-container {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .steam-particle {
+      position: absolute;
+      bottom: 30%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 70%);
+      animation: steamRise var(--dur) ease-in infinite;
+      animation-delay: var(--delay);
+      filter: blur(8px);
+    }
+    @keyframes steamRise {
+      0%   { transform: translateY(0)   translateX(0)    scale(0.6); opacity: 0; }
+      10%  { opacity: 0.6; }
+      50%  { transform: translateY(-120px) translateX(var(--drift)) scale(1.4); opacity: 0.35; }
+      100% { transform: translateY(-260px) translateX(calc(var(--drift) * 1.8)) scale(2.2); opacity: 0; }
+    }
+    /* Subtle warm glow at bottom where towels are */
+    #steam-glow {
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 180px;
+      background: radial-gradient(ellipse at center bottom, rgba(255,180,80,0.18) 0%, rgba(255,120,40,0.08) 40%, transparent 70%);
+      z-index: 1;
+      pointer-events: none;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.7; }
+      50%       { opacity: 1; }
+    }
+ 
+    /* ── NAV ── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+      background: transparent;
+    }
+    #nav.scrolled {
+      background: rgba(27,24,19,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+    }
+    #nav .nav-logo, #nav .nav-link { color: #F4EEDF; }
+    #nav.scrolled .nav-logo, #nav.scrolled .nav-link { color: #F4EEDF; }
+ 
+    /* ── HERO VIDEO ── */
+    #hero { position: relative; height: 100vh; min-height: 560px; overflow: hidden; }
+    #hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    #hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(10,8,6,0.70) 0%, rgba(27,24,19,0.80) 55%, rgba(50,30,20,0.65) 100%);
+    }
+    #hero-content { position: relative; z-index: 2; }
+ 
+    /* ── HORIZONTAL SCROLL ── */
+    .h-scroll-track {
+      display: flex; gap: 1.5rem;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; padding: 0.5rem 1rem 1.5rem;
+    }
+    .h-scroll-track::-webkit-scrollbar { display: none; }
+    .h-scroll-card {
+      flex: 0 0 min(78vw, 320px);
+      scroll-snap-align: start;
+      background: #F4EEDF;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+ 
+    /* ── GALLERY GRID ── */
+    .gallery-item { overflow: hidden; }
+    .gallery-item img { transition: transform 0.7s cubic-bezier(0.25,0,0.25,1), filter 0.4s ease; filter: saturate(0.9); }
+    .gallery-item:hover img { transform: scale(1.05); filter: saturate(1); }
+ 
+    /* ── ANIMATIONS ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+ 
+    /* ── EYEBROW ── */
+    .eyebrow {
+      font-family: 'Manrope', sans-serif; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase; color: #8B6E47;
+    }
+ 
+    /* ── MOBILE MENU ── */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: block; }
+ 
+    /* ── SERVICES LIST (desktop editorial) ── */
+    .service-row {
+      display: grid; grid-template-columns: 3ch 1fr auto;
+      align-items: center; gap: 1.5rem;
+      padding: 1.5rem 0; border-bottom: 1px solid #C9BEA5;
+      cursor: default; transition: background 0.25s;
+    }
+    .service-row:hover .service-title { color: #A04A2A; }
+    .service-row:hover .service-arrow { transform: translateX(4px); }
+    .service-arrow { transition: transform 0.3s; }
+ 
+    /* ── MARQUEE ── */
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
+ 
+    /* ── DOTS ── */
+    .scroll-dot { width: 7px; height: 7px; border-radius: 50%; background: #C9BEA5; transition: background 0.3s, transform 0.3s; }
+    .scroll-dot.active { background: #A04A2A; transform: scale(1.3); }
+ 
+    /* ── WHATSAPP FLOAT ── */
+ 
+    /* ── LANG TOGGLE ── */
+    #lang-btn { font-size: 0.7rem; letter-spacing: 0.14em; font-weight: 600; }
+ 
+    /* ── MAP ── */
+    .map-wrapper { position: relative; padding-bottom: 52%; height: 0; overflow: hidden; border-radius: 2px; }
+    .map-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+ 
+    /* ── FORM ── */
+    input, select, textarea {
+      background: transparent; border: none; border-bottom: 1px solid #C9BEA5;
+      padding: 0.75rem 0; width: 100%; font-family: 'Manrope', sans-serif;
+      font-size: 0.9rem; color: #1B1813; outline: none; border-radius: 0;
+      transition: border-color 0.3s;
+    }
+    input:focus, select:focus, textarea:focus { border-bottom-color: #A04A2A; }
+    input::placeholder, textarea::placeholder { color: #6F6A5F; }
+ 
+    /* form on dark bg */
+    .form-dark input, .form-dark select, .form-dark textarea {
+      color: #F4EEDF; border-bottom-color: rgba(255,255,255,0.25);
+    }
+    .form-dark input:focus, .form-dark select:focus, .form-dark textarea:focus { border-bottom-color: #C5A55A; }
+    .form-dark input::placeholder, .form-dark textarea::placeholder { color: rgba(244,238,223,0.45); }
+    .form-dark select option { background: #1B1813; color: #F4EEDF; }
+    .form-dark label { color: rgba(244,238,223,0.55); }
+ 
+    /* ── DONATION CARD ── */
+    .pay-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px; padding: 1.5rem; cursor: pointer;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .pay-card:hover { border-color: rgba(197,165,90,0.5); background: rgba(197,165,90,0.07); }
+ 
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; bottom: 5.5rem; right: 1.75rem; z-index: 300;
+      background: #1B1813; color: #F4EEDF;
+      padding: 0.75rem 1.25rem; font-size: 0.8rem; letter-spacing: 0.04em;
+      border-left: 3px solid #C5A55A; border-radius: 2px;
+      transform: translateY(20px); opacity: 0;
+      transition: all 0.35s ease; pointer-events: none;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+ 
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-left { opacity: 1; transform: none; transition: none; }
+      .marquee-track { animation: none; }
+    }
+  </style>
+ 
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DaySpa",
+    "name": "Privé Spa Miami",
+    "url": "https://www.privespamiami.com",
+    "email": "privespamiami@gmail.com",
+    "image": "https://res.cloudinary.com/prive-spa/image/upload/logo.png",
+    "description": "Spa a domicilio en Miami, FL. Llevamos el bienestar hasta ti: masajes terapéuticos, drenaje linfático, reflexología y masaje profundo en la comodidad de tu hogar.",
+    "telephone": "+13059907274",
+    "areaServed": {
+      "@type": "City",
+      "name": "Miami, FL"
+    },
+    "sameAs": [
+      "https://www.instagram.com/privespamiami?igsh=MWNiN256dzM4Ym95cA==",
+      "https://www.facebook.com/share/1CPA5npJKB/?mibextid=wwXIfr"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios de spa",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Drenaje Linfático Manual" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reflexología" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Masaje de Relajación" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Masaje Tejido Profundo" } }
+      ]
+    }
+  }
+  </script>
+</head>
+ 
+<body class="grain" id="top">
+ 
+<!-- Animated background canvas -->
+<div id="bg-canvas" aria-hidden="true"></div>
+ 
+<!-- ═══════════════════════════════════ NAV ═══════════════════════════════════ -->
+<nav id="nav" class="px-6 md:px-10 lg:px-16 py-5">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+ 
+    <!-- Logo -->
+    <a href="#top" class="nav-logo block">
+      <img src="https://res.cloudinary.com/dd3tduggc/image/upload/v1780692988/transparente_du8gnk.png"
+           alt="Privé Spa Miami" class="h-18 md:h-22 w-auto object-contain" style="height:clamp(90px,12vw,120px)">
+    </a>
+ 
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#servicios" class="nav-link text-xs tracking-widest uppercase font-medium opacity-80 hover:opacity-100 transition-opacity" data-i18n="nav_services">Servicios</a>
+      <a href="#nosotros" class="nav-link text-xs tracking-widest uppercase font-medium opacity-80 hover:opacity-100 transition-opacity" data-i18n="nav_about">Nosotros</a>
+      <a href="#eventos" class="nav-link text-xs tracking-widest uppercase font-medium opacity-80 hover:opacity-100 transition-opacity" data-i18n="nav_events">Eventos</a>
+      <a href="#contacto" class="nav-link text-xs tracking-widest uppercase font-medium opacity-80 hover:opacity-100 transition-opacity" data-i18n="nav_contact">Contacto</a>
+      <button id="lang-btn" class="nav-link tracking-widest uppercase border border-current px-3 py-1.5 opacity-70 hover:opacity-100 transition-opacity" onclick="toggleLang()">EN</button>
+    </div>
+ 
+    <!-- Mobile controls -->
+    <div class="flex md:hidden items-center gap-4">
+      <button id="lang-btn-mobile" class="nav-link text-xs tracking-widest uppercase border border-current px-2.5 py-1.5 opacity-80" onclick="toggleLang()">EN</button>
+      <button onclick="toggleMobile()" aria-label="Menú" class="nav-link flex flex-col gap-[5px] w-6">
+        <span class="block h-px bg-current transition-all"></span>
+        <span class="block h-px bg-current transition-all w-3/4"></span>
+        <span class="block h-px bg-current transition-all"></span>
+      </button>
+    </div>
+  </div>
+ 
+  <!-- Mobile drawer -->
+  <div id="mobile-menu" class="md:hidden border-t border-white/10 mt-4 pt-4 pb-2 flex flex-col gap-4">
+    <a href="#servicios" class="nav-link text-sm tracking-widest uppercase" onclick="closeMobile()" data-i18n="nav_services">Servicios</a>
+    <a href="#nosotros" class="nav-link text-sm tracking-widest uppercase" onclick="closeMobile()" data-i18n="nav_about">Nosotros</a>
+    <a href="#eventos" class="nav-link text-sm tracking-widest uppercase" onclick="closeMobile()" data-i18n="nav_events">Eventos</a>
+    <a href="#contacto" class="nav-link text-sm tracking-widest uppercase" onclick="closeMobile()" data-i18n="nav_contact">Contacto</a>
+  </div>
+</nav>
+ 
+<!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
+<section id="hero">
+  <img id="hero-video"
+       src="https://res.cloudinary.com/dd3tduggc/image/upload/v1781717738/360_F_145340247_9KrrkJ6mhNg0wmzuQ87bBouCPyG6FzNE_ieenmu.jpg"
+       alt="Privé Spa Miami" fetchpriority="high">
+  <div id="hero-overlay"></div>
+ 
+  <!-- Steam / vapor effect -->
+  <div id="steam-glow"></div>
+  <div id="steam-container" aria-hidden="true"></div>
+ 
+  <div id="hero-content" class="h-full flex flex-col items-center justify-center text-center px-6">
+ 
+    <!-- Eyebrow -->
+    <p class="eyebrow text-gold opacity-90 mb-6 tracking-widest" id="hero-eyebrow" data-i18n="hero_eyebrow">
+      Miami, FL &nbsp;·&nbsp; Spa a Domicilio
+    </p>
+ 
+    <!-- Headline — single language, swaps on toggle -->
+    <div class="mb-6">
+      <h1 id="hero-title" data-i18n="hero_title" class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light text-cream leading-tight mb-3">
+        Llevamos el bienestar<br><em class="italic">hasta donde estás</em>
+      </h1>
+      <p id="hero-sub" data-i18n="hero_sub" class="font-display-i text-base sm:text-lg text-cream/70 font-light">
+        Tu cuerpo merece una pausa — nosotros la llevamos a ti.
+      </p>
+    </div>
+ 
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-3 items-center">
+      <a href="#contacto" id="hero-cta1" data-i18n="hero_cta" class="bg-gold text-ink text-[11px] font-semibold tracking-widest uppercase px-7 py-3.5 hover:bg-goldlt transition-colors">
+        Reserva tu cita
+      </a>
+      <a href="#servicios" id="hero-cta2" data-i18n="hero_cta2" class="border border-cream/50 text-cream text-[11px] font-semibold tracking-widest uppercase px-7 py-3.5 hover:border-cream hover:bg-cream/10 transition-colors">
+        Ver servicios
+      </a>
+    </div>
+ 
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+      <div class="w-px h-10 bg-cream/50 animate-pulse"></div>
+      <span id="hero-scroll-hint" data-i18n="scroll_hint" class="text-cream text-[9px] tracking-widest uppercase font-medium">Desliza</span>
+    </div>
+  </div>
+</section>
+ 
+<!-- ═══════════════════════════════════ MARQUEE ═══════════════════════════════════ -->
+<div class="bg-ink marquee-strip py-4 overflow-hidden">
+  <div class="marquee-track">
+    <div class="flex gap-10 pr-10">
+      <span class="eyebrow text-gold whitespace-nowrap" data-i18n="mq1">Drenaje Linfático</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-bone/60 whitespace-nowrap" data-i18n="mq2">Reflexología</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-gold whitespace-nowrap" data-i18n="mq3">Masaje de Relajación</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-bone/60 whitespace-nowrap" data-i18n="mq4">Tejido Profundo</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-gold whitespace-nowrap" data-i18n="mq5">Bienestar &amp; Salud</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-bone/60 whitespace-nowrap" data-i18n="mq6">Miami, FL</span>
+      <span class="text-white/20 font-light">·</span>
+    </div>
+    <!-- duplicate for seamless loop -->
+    <div class="flex gap-10 pr-10" aria-hidden="true">
+      <span class="eyebrow text-gold whitespace-nowrap" data-i18n="mq1">Drenaje Linfático</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-bone/60 whitespace-nowrap" data-i18n="mq2">Reflexología</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-gold whitespace-nowrap" data-i18n="mq3">Masaje de Relajación</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-bone/60 whitespace-nowrap" data-i18n="mq4">Tejido Profundo</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-gold whitespace-nowrap" data-i18n="mq5">Bienestar &amp; Salud</span>
+      <span class="text-white/20 font-light">·</span>
+      <span class="eyebrow text-bone/60 whitespace-nowrap" data-i18n="mq6">Miami, FL</span>
+      <span class="text-white/20 font-light">·</span>
+    </div>
+  </div>
+</div>
+ 
+<!-- ═══════════════════════════════════ NOSOTROS ═══════════════════════════════════ -->
+<section id="nosotros" class="bg-paper py-24 px-6 md:px-10 lg:px-16">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <div>
+      <p class="eyebrow mb-4 reveal" data-i18n="about_eyebrow">Sobre nosotros</p>
+      <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-8 reveal" data-i18n="about_title">
+        Un espacio<br><em class="italic">diseñado para ti</em>
+      </h2>
+      <p class="text-mute leading-relaxed mb-6 reveal" data-i18n="about_p1">
+        Privé Spa Miami lleva el bienestar directamente a ti. No tenemos un local fijo — nos desplazamos hasta tu hogar, hotel o espacio preferido para que disfrutes de cada tratamiento en la comodidad y privacidad que mereces.
+      </p>
+      <p class="text-mute leading-relaxed mb-10 reveal" data-i18n="about_p2">
+        Nuestra misión es simple: que no tengas que ir a ningún lado para sentirte bien. Con técnicas terapéuticas profesionales y atención completamente personalizada, transformamos cualquier espacio en tu propio santuario de bienestar.
+      </p>
+      <div class="grid grid-cols-2 gap-8 reveal">
+        <div>
+          <p class="font-display text-4xl font-light text-clay">+550</p>
+          <p class="eyebrow mt-1" data-i18n="stat1_label">Clientes felices</p>
+        </div>
+        <div>
+          <p class="font-display text-4xl font-light text-clay">4</p>
+          <p class="eyebrow mt-1" data-i18n="stat2_label">Terapias especializadas</p>
+        </div>
+      </div>
+    </div>
+    <div class="relative reveal">
+      <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80"
+           alt="Interior del spa" class="w-full aspect-[4/5] object-cover">
+      <div class="absolute -bottom-6 -left-6 bg-ink text-cream p-6 max-w-[220px] hidden md:block">
+        <p class="font-display-i text-lg font-light leading-snug" data-i18n="about_quote">"Llevamos el bienestar hasta donde estás."</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ═══════════════════════════════════ SERVICIOS (scroll horizontal) ═══════════════════════════════════ -->
+<section id="servicios" class="bg-bone py-24">
+  <div class="px-6 md:px-10 lg:px-16 max-w-7xl mx-auto mb-12">
+    <p class="eyebrow mb-4 reveal" data-i18n="services_eyebrow">Nuestros tratamientos</p>
+    <div class="flex items-end justify-between gap-4">
+      <h2 class="font-display text-4xl sm:text-5xl font-light leading-tight reveal" data-i18n="services_title">
+        Cuatro vías<br><em class="italic">hacia el bienestar</em>
+      </h2>
+      <div class="hidden sm:flex gap-3 mb-1">
+        <button onclick="scrollCards(-1)" class="w-10 h-10 border border-mute/40 flex items-center justify-center hover:border-clay hover:text-clay transition-colors" aria-label="Anterior">←</button>
+        <button onclick="scrollCards(1)"  class="w-10 h-10 border border-mute/40 flex items-center justify-center hover:border-clay hover:text-clay transition-colors" aria-label="Siguiente">→</button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Horizontal scroll track -->
+  <div class="h-scroll-track px-6 md:px-10 lg:px-16" id="cards-track">
+ 
+    <!-- Card 1: Drenaje Linfático -->
+    <div class="h-scroll-card">
+      <div class="relative aspect-[4/3] overflow-hidden">
+        <img src="https://res.cloudinary.com/dd3tduggc/image/upload/v1781629201/manual_zsdkpr.jpg"
+             alt="Drenaje linfático" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+        <div class="absolute top-3 left-3 bg-ink/80 text-cream text-[10px] tracking-widest uppercase px-2.5 py-1">01</div>
+      </div>
+      <div class="p-6">
+        <h3 class="font-display text-xl font-light mb-2" data-i18n="s1_title">Drenaje Linfático Manual</h3>
+        <p class="text-mute text-sm leading-relaxed" data-i18n="s1_desc">Técnica de presión suave que activa el sistema linfático, reduce la retención de líquidos y promueve la desintoxicación profunda.</p>
+        <p class="text-gold text-xs font-semibold tracking-widest uppercase mt-3 mb-1">From $159</p>
+        <a href="#contacto" class="inline-flex items-center gap-2 mt-4 text-xs tracking-widest uppercase text-clay font-semibold hover:gap-3 transition-all" data-i18n="card_cta">Reservar →</a>
+      </div>
+    </div>
+ 
+    <!-- Card 2: Reflexología -->
+    <div class="h-scroll-card">
+      <div class="relative aspect-[4/3] overflow-hidden">
+        <img src="https://res.cloudinary.com/dd3tduggc/image/upload/v1781628239/reflexologymassage_m3ipbi.jpg"
+             alt="Reflexología" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+        <div class="absolute top-3 left-3 bg-ink/80 text-cream text-[10px] tracking-widest uppercase px-2.5 py-1">02</div>
+      </div>
+      <div class="p-6">
+        <h3 class="font-display text-xl font-light mb-2" data-i18n="s2_title">Reflexología</h3>
+        <p class="text-mute text-sm leading-relaxed" data-i18n="s2_desc">Presión terapéutica en puntos reflejos de pies y manos que corresponden a órganos y sistemas del cuerpo. Equilibrio desde la raíz.</p>
+        <p class="text-gold text-xs font-semibold tracking-widest uppercase mt-3 mb-1">From $159</p>
+        <a href="#contacto" class="inline-flex items-center gap-2 mt-4 text-xs tracking-widest uppercase text-clay font-semibold hover:gap-3 transition-all" data-i18n="card_cta">Reservar →</a>
+      </div>
+    </div>
+ 
+    <!-- Card 3: Masaje de Relajación -->
+    <div class="h-scroll-card">
+      <div class="relative aspect-[4/3] overflow-hidden">
+        <img src="https://res.cloudinary.com/dd3tduggc/image/upload/v1781628160/relaxationmassage.png_duk9uy.jpg"
+             alt="Masaje de relajación" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+        <div class="absolute top-3 left-3 bg-ink/80 text-cream text-[10px] tracking-widest uppercase px-2.5 py-1">03</div>
+      </div>
+      <div class="p-6">
+        <h3 class="font-display text-xl font-light mb-2" data-i18n="s3_title">Masaje de Relajación</h3>
+        <p class="text-mute text-sm leading-relaxed" data-i18n="s3_desc">Movimientos suaves y fluidos que liberan la tensión acumulada, calman el sistema nervioso y restauran una sensación de calma profunda.</p>
+        <p class="text-gold text-xs font-semibold tracking-widest uppercase mt-3 mb-1">From $159</p>
+        <a href="#contacto" class="inline-flex items-center gap-2 mt-4 text-xs tracking-widest uppercase text-clay font-semibold hover:gap-3 transition-all" data-i18n="card_cta">Reservar →</a>
+      </div>
+    </div>
+ 
+    <!-- Card 4: Tejido Profundo -->
+    <div class="h-scroll-card">
+      <div class="relative aspect-[4/3] overflow-hidden">
+        <img src="https://res.cloudinary.com/dd3tduggc/image/upload/v1781628019/deeptissuemasage_bdaadj.jpg"
+             alt="Masaje tejido profundo" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+        <div class="absolute top-3 left-3 bg-ink/80 text-cream text-[10px] tracking-widest uppercase px-2.5 py-1">04</div>
+      </div>
+      <div class="p-6">
+        <h3 class="font-display text-xl font-light mb-2" data-i18n="s4_title">Masaje Tejido Profundo</h3>
+        <p class="text-mute text-sm leading-relaxed" data-i18n="s4_desc">Presión sostenida en capas musculares más profundas para liberar nudos crónicos, mejorar la circulación y restaurar el movimiento.</p>
+        <p class="text-gold text-xs font-semibold tracking-widest uppercase mt-3 mb-1">From $159</p>
+        <a href="#contacto" class="inline-flex items-center gap-2 mt-4 text-xs tracking-widest uppercase text-clay font-semibold hover:gap-3 transition-all" data-i18n="card_cta">Reservar →</a>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- Dots -->
+  <div class="flex gap-2 justify-center mt-6" id="scroll-dots">
+    <div class="scroll-dot active" data-idx="0"></div>
+    <div class="scroll-dot" data-idx="1"></div>
+    <div class="scroll-dot" data-idx="2"></div>
+    <div class="scroll-dot" data-idx="3"></div>
+  </div>
+</section>
+ 
+<!-- ═══════════════════════════════════ HORARIOS ═══════════════════════════════════ -->
+<section class="bg-ink py-24 px-6 md:px-10 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <div>
+        <p class="eyebrow text-gold mb-4 reveal" data-i18n="hours_eyebrow">Horario de visitas a domicilio</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-light text-cream leading-tight mb-10 reveal" data-i18n="hours_title">
+          Encuentra tu<br><em class="italic">momento ideal</em>
+        </h2>
+        <div class="space-y-0 reveal">
+          <div class="flex justify-between items-center py-4 border-b border-white/10">
+            <span class="text-cream/70 text-sm" data-i18n="h_mon">Lunes – Viernes</span>
+            <span class="text-cream font-medium text-sm">9:00 AM – 7:00 PM</span>
+          </div>
+          <div class="flex justify-between items-center py-4 border-b border-white/10">
+            <span class="text-cream/70 text-sm" data-i18n="h_sat">Sábado</span>
+            <span class="text-cream font-medium text-sm">10:00 AM – 6:00 PM</span>
+          </div>
+          <div class="flex justify-between items-center py-4 border-b border-white/10">
+            <span class="text-cream/70 text-sm" data-i18n="h_sun">Domingo</span>
+            <span class="text-gold text-sm" data-i18n="h_appt">Con cita — cubrimos Miami y alrededores</span>
+          </div>
+        </div>
+        <a href="#contacto" class="inline-block mt-8 bg-gold text-ink text-xs font-semibold tracking-widest uppercase px-7 py-4 hover:bg-goldlt transition-colors reveal" data-i18n="hours_cta">Agendar ahora</a>
+      </div>
+      <div class="reveal">
+        <img src="https://res.cloudinary.com/dd3tduggc/image/upload/v1781712584/DSC_0365-1000x543_bftwcm.jpg"
+             alt="Ambiente del spa" class="w-full aspect-video lg:aspect-[4/5] object-cover opacity-75">
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ═══════════════════════════════════ TESTIMONIOS ═══════════════════════════════════ -->
+<section class="bg-bone py-24 px-6 md:px-10 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <p class="eyebrow mb-4 reveal" data-i18n="test_eyebrow">Testimonios</p>
+    <div class="grid md:grid-cols-3 gap-8 mt-8">
+      <div class="reveal" style="transition-delay:0ms">
+        <p class="font-display-i text-xl font-light leading-relaxed text-ink mb-6" data-i18n="t1">"El drenaje linfático me cambió la vida. Me siento más liviana y con tanta energía después de cada sesión. ¡Absolutamente recomendado!"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-px bg-clay"></div>
+          <span class="text-xs tracking-widest uppercase text-mute">Carolina M.</span>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:100ms">
+        <p class="font-display-i text-xl font-light leading-relaxed text-ink mb-6" data-i18n="t2">"La reflexología fue una experiencia increíble. Me sorprendió la conexión que hay entre los pies y el cuerpo completo. Ya agendé mi próxima cita."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-px bg-clay"></div>
+          <span class="text-xs tracking-widest uppercase text-mute">Ana R.</span>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:200ms">
+        <p class="font-display-i text-xl font-light leading-relaxed text-ink mb-6" data-i18n="t3">"El ambiente es precioso y Bionda tiene manos de oro. El masaje de tejido profundo me alivió meses de tensión en la espalda. ¡Gracias!"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-px bg-clay"></div>
+          <span class="text-xs tracking-widest uppercase text-mute">María G.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ═══════════════════════════════════ EVENTOS ═══════════════════════════════════ -->
+<section id="eventos" class="bg-sagedk py-24 px-6 md:px-10 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <p class="eyebrow text-goldlt mb-4 reveal" data-i18n="events_eyebrow">Próximos eventos</p>
+    <h2 class="font-display text-4xl sm:text-5xl font-light text-cream leading-tight mb-12 reveal" data-i18n="events_title">
+      Agenda &amp;<br><em class="italic">Novedades</em>
+    </h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Event 1 -->
+      <div class="bg-white/8 border border-white/15 p-6 hover:border-gold/40 transition-colors reveal" style="transition-delay:0ms">
+        <p class="eyebrow text-gold mb-4">Jul 2026</p>
+        <h3 class="font-display text-xl text-cream font-light mb-3" data-i18n="ev1_title">Wellness Weekend</h3>
+        <p class="text-cream/60 text-sm leading-relaxed mb-4" data-i18n="ev1_desc">Dos días de tratamientos a precio especial. Drenaje linfático + reflexología con descuento exclusivo para clientes frecuentes.</p>
+        <span class="text-xs tracking-widest uppercase text-gold/70" data-i18n="ev_soon">Próximamente — más detalles por Instagram</span>
+      </div>
+      <!-- Event 2 -->
+      <div class="bg-white/8 border border-white/15 p-6 hover:border-gold/40 transition-colors reveal" style="transition-delay:100ms">
+        <p class="eyebrow text-gold mb-4">Ago 2026</p>
+        <h3 class="font-display text-xl text-cream font-light mb-3" data-i18n="ev2_title">Gift Cards de Verano</h3>
+        <p class="text-cream/60 text-sm leading-relaxed mb-4" data-i18n="ev2_desc">Regala bienestar. Tarjetas de regalo disponibles por mensaje directo o en nuestra cuenta de Instagram.</p>
+        <a href="https://www.instagram.com/privespamiami?igsh=MWNiN256dzM4Ym95cA==" target="_blank" class="text-xs tracking-widest uppercase text-gold hover:text-goldlt transition-colors" data-i18n="ev_dm">Contáctanos en Instagram →</a>
+      </div>
+      <!-- Event 3 -->
+      <div class="bg-white/8 border border-white/15 p-6 hover:border-gold/40 transition-colors reveal" style="transition-delay:200ms">
+        <p class="eyebrow text-gold mb-4">Siempre</p>
+        <h3 class="font-display text-xl text-cream font-light mb-3" data-i18n="ev3_title">Clientes VIP</h3>
+        <p class="text-cream/60 text-sm leading-relaxed mb-4" data-i18n="ev3_desc">A partir de tu 5ª sesión, eres parte de nuestro programa de lealtad. Descuentos, prioridad en agenda y sorpresas especiales.</p>
+        <a href="#contacto" class="text-xs tracking-widest uppercase text-gold hover:text-goldlt transition-colors" data-i18n="ev_join">Únete →</a>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ═══════════════════════════════════ DONACIONES / GIFT CARDS ═══════════════════════════════════ -->
+<section class="bg-ink py-24 px-6 md:px-10 lg:px-16">
+  <div class="max-w-5xl mx-auto text-center">
+    <p class="eyebrow text-gold mb-4 reveal" data-i18n="pay_eyebrow">Métodos de pago &amp; Gift Cards</p>
+    <h2 class="font-display text-4xl sm:text-5xl font-light text-cream leading-tight mb-6 reveal" data-i18n="pay_title">
+      Fácil, seguro<br><em class="italic">y sin complicaciones</em>
+    </h2>
+    <p class="text-cream/60 max-w-lg mx-auto mb-12 reveal" data-i18n="pay_sub">Aceptamos pagos digitales para tu comodidad. Toca cualquier opción para copiar el usuario.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal">
+      <div class="pay-card" onclick="copyPay('$privespamiami','Zelle')">
+        <p class="text-gold text-xs tracking-widest uppercase mb-2">Zelle</p>
+        <p class="text-cream text-sm font-medium">privespamiami@gmail.com</p>
+        <p class="text-cream/30 text-xs mt-2" data-i18n="tap_copy">Toca para copiar</p>
+      </div>
+      <div class="pay-card" onclick="copyPay('$privespamiami','CashApp')">
+        <p class="text-gold text-xs tracking-widest uppercase mb-2">CashApp</p>
+        <p class="text-cream text-sm font-medium">$privespamiami</p>
+        <p class="text-cream/30 text-xs mt-2" data-i18n="tap_copy">Toca para copiar</p>
+      </div>
+      <div class="pay-card" onclick="copyPay('@privespamiami','Venmo')">
+        <p class="text-gold text-xs tracking-widest uppercase mb-2">Venmo</p>
+        <p class="text-cream text-sm font-medium">@privespamiami</p>
+        <p class="text-cream/30 text-xs mt-2" data-i18n="tap_copy">Toca para copiar</p>
+      </div>
+    </div>
+    <p class="text-cream/30 text-xs mt-8 reveal" data-i18n="pay_note">También aceptamos efectivo en la cita. Para gift cards digitales, contáctenos por Instagram.</p>
+  </div>
+</section>
+ 
+<!-- ═══════════════════════════════════ MAPA + CONTACTO ═══════════════════════════════════ -->
+<section id="contacto" class="bg-paper py-24 px-6 md:px-10 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-16">
+ 
+      <!-- Form -->
+      <div>
+        <p class="eyebrow mb-4 reveal" data-i18n="contact_eyebrow">Reserva tu visita a domicilio</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-light leading-tight mb-10 reveal" data-i18n="contact_title">
+          Comienza tu<br><em class="italic">viaje hoy</em>
+        </h2>
+        <form id="contact-form" class="space-y-8 reveal" onsubmit="submitForm(event)">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="eyebrow block mb-2 text-mute" for="name" data-i18n="form_name">Nombre</label>
+              <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+            </div>
+            <div>
+              <label class="eyebrow block mb-2 text-mute" for="phone" data-i18n="form_phone">Teléfono / WhatsApp</label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 (305) 000-0000">
+            </div>
+          </div>
+          <div>
+            <label class="eyebrow block mb-2 text-mute" for="email" data-i18n="form_email">Email</label>
+            <input type="email" id="email" name="email" placeholder="tu@email.com">
+          </div>
+          <div>
+            <label class="eyebrow block mb-2 text-mute" for="service" data-i18n="form_service">Servicio de interés</label>
+            <select id="service" name="service">
+              <option value="" data-i18n="form_choose">— Selecciona —</option>
+              <option data-i18n="s1_title">Drenaje Linfático Manual</option>
+              <option data-i18n="s2_title">Reflexología</option>
+              <option data-i18n="s3_title">Masaje de Relajación</option>
+              <option data-i18n="s4_title">Masaje Tejido Profundo</option>
+            </select>
+          </div>
+          <div>
+            <label class="eyebrow block mb-2 text-mute" for="message" data-i18n="form_message">Mensaje (opcional)</label>
+            <textarea id="message" name="message" rows="3" placeholder="¿Alguna pregunta o preferencia?"></textarea>
+          </div>
+          <button type="submit" class="bg-ink text-cream text-xs font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-clay transition-colors" data-i18n="form_submit">Enviar solicitud</button>
+        </form>
+        <p id="form-success" class="hidden mt-6 text-sage text-sm" data-i18n="form_ok">✓ Mensaje enviado. Te contactaremos pronto.</p>
+      </div>
+ 
+      <!-- Map + info -->
+      <div class="reveal">
+        <div class="map-wrapper mb-8">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114950.44752855064!2d-80.3209!3d25.7745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b0a20ec8c111%3A0xff96f271ddad4f65!2sMiami%2C%20FL!5e0!3m2!1ses!2sus!4v1680000000000!5m2!1ses!2sus"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa Miami FL">
+          </iframe>
+        </div>
+        <div class="space-y-5">
+          <div class="flex gap-4 items-start">
+            <span class="text-clay mt-0.5">📍</span>
+            <div>
+              <p class="eyebrow text-mute mb-1" data-i18n="info_loc">Ubicación</p>
+              <p class="text-ink">Miami, FL <span class="text-mute text-xs">(servicio a domicilio)</span></p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <span class="text-clay mt-0.5">✉️</span>
+            <div>
+              <p class="eyebrow text-mute mb-1" data-i18n="info_email">Email</p>
+              <a href="mailto:privespamiami@gmail.com" class="text-ink hover:text-clay transition-colors">privespamiami@gmail.com</a>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <span class="text-clay mt-0.5">📱</span>
+            <div>
+              <p class="eyebrow text-mute mb-1" data-i18n="info_wa">Teléfono / WhatsApp</p>
+              <a href="https://wa.me/13059906211" target="_blank" class="block text-ink hover:text-clay transition-colors font-medium">(305) 990-6211 · WhatsApp</a>
+              <a href="https://wa.me/13059906211" class="text-ink hover:text-clay transition-colors text-sm" data-i18n="wa_chat">Escríbenos por WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- ═══════════════════════════════════ FAQ ═══════════════════════════════════ -->
+<section class="bg-bone py-24 px-6 md:px-10 lg:px-16">
+  <div class="max-w-3xl mx-auto">
+    <p class="eyebrow mb-4 text-center reveal" data-i18n="faq_eyebrow">Preguntas frecuentes</p>
+    <h2 class="font-display text-4xl font-light text-center mb-12 reveal" data-i18n="faq_title">Lo que<br><em class="italic">más nos preguntan</em></h2>
+    <div class="space-y-0" id="faq-list">
+ 
+      <div class="faq-item border-b border-line">
+        <button class="faq-btn w-full flex justify-between items-center py-5 text-left gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-light" data-i18n="q1">¿Se necesita cita previa?</span>
+          <span class="faq-icon text-clay text-xl flex-shrink-0">+</span>
+        </button>
+        <div class="faq-body overflow-hidden max-h-0 transition-all duration-300">
+          <p class="text-mute text-sm leading-relaxed pb-5" data-i18n="a1">Sí, todos nuestros servicios son con cita previa para garantizarte una atención exclusiva y sin esperas. Puedes reservar aquí, por WhatsApp o por Instagram.</p>
+        </div>
+      </div>
+ 
+      <div class="faq-item border-b border-line">
+        <button class="faq-btn w-full flex justify-between items-center py-5 text-left gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-light" data-i18n="q2">¿Cuánto dura cada sesión?</span>
+          <span class="faq-icon text-clay text-xl flex-shrink-0">+</span>
+        </button>
+        <div class="faq-body overflow-hidden max-h-0 transition-all duration-300">
+          <p class="text-mute text-sm leading-relaxed pb-5" data-i18n="a2">Las sesiones duran entre 60 y 90 minutos dependiendo del tratamiento. Al reservar te indicamos el tiempo exacto para que puedas planificar tu día.</p>
+        </div>
+      </div>
+ 
+      <div class="faq-item border-b border-line">
+        <button class="faq-btn w-full flex justify-between items-center py-5 text-left gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-light" data-i18n="q3">¿El drenaje linfático es doloroso?</span>
+          <span class="faq-icon text-clay text-xl flex-shrink-0">+</span>
+        </button>
+        <div class="faq-body overflow-hidden max-h-0 transition-all duration-300">
+          <p class="text-mute text-sm leading-relaxed pb-5" data-i18n="a3">No. El drenaje linfático manual es una técnica de presión muy suave y rítmica. La mayoría de las personas lo encuentran profundamente relajante.</p>
+        </div>
+      </div>
+ 
+      <div class="faq-item border-b border-line">
+        <button class="faq-btn w-full flex justify-between items-center py-5 text-left gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-light" data-i18n="q4">¿Aceptan tarjeta de crédito?</span>
+          <span class="faq-icon text-clay text-xl flex-shrink-0">+</span>
+        </button>
+        <div class="faq-body overflow-hidden max-h-0 transition-all duration-300">
+          <p class="text-mute text-sm leading-relaxed pb-5" data-i18n="a4">Aceptamos Zelle, CashApp, Venmo y efectivo. En este momento no procesamos tarjetas de crédito directamente.</p>
+        </div>
+      </div>
+ 
+      <div class="faq-item border-b border-line">
+        <button class="faq-btn w-full flex justify-between items-center py-5 text-left gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-light" data-i18n="q5">¿Con cuánta anticipación debo cancelar?</span>
+          <span class="faq-icon text-clay text-xl flex-shrink-0">+</span>
+        </button>
+        <div class="faq-body overflow-hidden max-h-0 transition-all duration-300">
+          <p class="text-mute text-sm leading-relaxed pb-5" data-i18n="a5">Pedimos un mínimo de 24 horas de anticipación para cancelaciones o reprogramaciones sin cargo. Entendemos que pueden surgir imprevistos — contáctanos.</p>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════════ -->
+<footer class="bg-ink text-cream/70 py-16 px-6 md:px-10 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-12 mb-12">
+ 
+      <!-- Brand -->
+      <div>
+        <p class="font-display text-2xl font-light text-cream tracking-widest uppercase mb-4">
+          Privé Spa <span class="text-gold">Miami</span>
+        </p>
+        <p class="text-sm leading-relaxed mb-6" data-i18n="footer_tagline">Spa a domicilio · Servimos Miami, FL y sus alrededores.</p>
+        <div class="flex gap-4">
+          <a href="https://www.instagram.com/privespamiami?igsh=MWNiN256dzM4Ym95cA==" target="_blank" aria-label="Instagram"
+             class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:border-gold hover:text-gold text-cream/70 transition-all hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/share/1CPA5npJKB/?mibextid=wwXIfr" target="_blank" aria-label="Facebook"
+             class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:border-gold hover:text-gold text-cream/70 transition-all hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+ 
+      <!-- Links -->
+      <div>
+        <p class="eyebrow text-gold mb-5" data-i18n="footer_nav">Navegación</p>
+        <div class="space-y-3">
+          <a href="#nosotros" class="block text-sm hover:text-cream transition-colors" data-i18n="nav_about">Nosotros</a>
+          <a href="#servicios" class="block text-sm hover:text-cream transition-colors" data-i18n="nav_services">Servicios</a>
+          <a href="#eventos" class="block text-sm hover:text-cream transition-colors" data-i18n="nav_events">Eventos</a>
+          <a href="#contacto" class="block text-sm hover:text-cream transition-colors" data-i18n="nav_contact">Contacto</a>
+        </div>
+      </div>
+ 
+      <!-- Contact -->
+      <div>
+        <p class="eyebrow text-gold mb-5" data-i18n="footer_contact">Contacto</p>
+        <div class="space-y-3 text-sm">
+          <p>Miami, FL</p>
+          <a href="https://wa.me/13059906211" target="_blank" class="block hover:text-cream transition-colors">(305) 990-6211</a>
+          <a href="mailto:privespamiami@gmail.com" class="block hover:text-cream transition-colors">privespamiami@gmail.com</a>
+          <a href="https://www.instagram.com/privespamiami?igsh=MWNiN256dzM4Ym95cA==" target="_blank" class="block hover:text-cream transition-colors">@privespamiami</a>
+          <p class="mt-4" data-i18n="footer_hours_note">Lun–Vie 9am–7pm · Sáb 10am–6pm · Servicio a domicilio</p>
+        </div>
+      </div>
+ 
+    </div>
+ 
+    <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-xs opacity-40" data-i18n="footer_copy">© 2026 Privé Spa Miami. Todos los derechos reservados.</p>
+      <p class="text-xs opacity-30" data-i18n="footer_dev">Diseño web — Enoc</p>
+    </div>
+  </div>
+</footer>
+ 
+<!-- ═══════════════════════════════════ FLOATING BUTTONS ═══════════════════════════════════ -->
+ 
+ 
+<!-- ═══════════════════════════════════ JAVASCRIPT ═══════════════════════════════════ -->
+<script>
+// ────────── TRANSLATIONS ──────────
+const i18n = {
+  es: {
+    logo: 'Privé Spa Miami', hero_eyebrow: 'Miami, FL · Spa a Domicilio',
+    hero_title: 'Llevamos el bienestar<br><em class="italic">hasta donde estás</em>',
+    hero_sub: 'Tu cuerpo merece una pausa — nosotros la llevamos a ti.',
+    hero_cta: 'Reserva tu cita', hero_cta2: 'Ver servicios',
+    scroll_hint: 'Desliza',
+    nav_services: 'Servicios', nav_about: 'Nosotros', nav_gallery: 'Galería',
+    nav_events: 'Eventos', nav_contact: 'Contacto',
+    mq1:'Drenaje Linfático', mq2:'Reflexología', mq3:'Masaje de Relajación',
+    mq4:'Tejido Profundo', mq5:'Bienestar & Salud', mq6:'Miami, FL',
+    about_eyebrow:'Sobre nosotros',
+    about_title:'Un espacio<br><em class="italic">diseñado para ti</em>',
+    about_p1:'Privé Spa Miami lleva el bienestar directamente a ti. No tenemos un local fijo — nos desplazamos hasta tu hogar, hotel o espacio preferido para que disfrutes de cada tratamiento en la comodidad y privacidad que mereces.',
+    about_p2:'Nuestra misión es simple: que no tengas que ir a ningún lado para sentirte bien. Con técnicas terapéuticas profesionales y atención completamente personalizada, transformamos cualquier espacio en tu propio santuario de bienestar.',
+    stat1_label:'Clientes felices', stat2_label:'Terapias especializadas',
+    about_quote:'"Llevamos el bienestar hasta donde estás."',
+    services_eyebrow:'Nuestros tratamientos',
+    services_title:'Cuatro vías<br><em class="italic">hacia el bienestar</em>',
+    s1_title:'Drenaje Linfático Manual', s1_desc:'El Drenaje Linfático Manual es una técnica suave y rítmica que estimula el sistema linfático para eliminar toxinas, reducir la retención de líquidos e inflamación, y fortalecer el sistema inmune. Ideal para post-operatorios, lipedema, cansancio crónico y bienestar general. Los resultados se sienten desde la primera sesión.',
+    s2_title:'Reflexología', s2_desc:'La Reflexología aplica presión precisa en puntos reflejos de los pies y manos que se conectan con órganos, glándulas y sistemas del cuerpo. Alivia el estrés, mejora la circulación, equilibra la energía y activa la capacidad natural de sanación del organismo. Una experiencia profundamente relajante con beneficios que van más allá de los pies.',
+    s3_title:'Masaje de Relajación', s3_desc:'El Masaje de Relajación combina movimientos largos, suaves y fluidos (effleurage y petrissage) para liberar la tensión muscular, reducir el cortisol y calmar el sistema nervioso. Perfecto para el estrés diario, insomnio o simplemente darte el descanso que mereces. Te levantarás sintiéndote renovado de mente y cuerpo.',
+    s4_title:'Masaje Tejido Profundo', s4_desc:'El Masaje de Tejido Profundo trabaja las capas más profundas del tejido muscular con presión firme y movimientos lentos y deliberados. Ideal para contracturas crónicas, lesiones deportivas, dolor de cuello y espalda, y rigidez. Rompe adherencias, mejora la movilidad y acelera la recuperación muscular.',
+    card_cta:'Reservar →',
+    hours_eyebrow:'Horario de visitas a domicilio',
+    hours_title:'Encuentra tu<br><em class="italic">momento ideal</em>',
+    h_mon:'Lunes – Viernes', h_sat:'Sábado', h_sun:'Domingo', h_appt:'Con cita — cubrimos Miami y alrededores',
+    hours_cta:'Agendar ahora',
+    gallery_eyebrow:'Galería', gallery_title:'El ambiente<br><em class="italic">que te espera</em>',
+    test_eyebrow:'Testimonios',
+    t1:'"El drenaje linfático me cambió la vida. Me siento más liviana y con tanta energía después de cada sesión. ¡Absolutamente recomendado!"',
+    t2:'"La reflexología fue una experiencia increíble. Me sorprendió la conexión que hay entre los pies y el cuerpo completo. Ya agendé mi próxima cita."',
+    t3:'"El ambiente es precioso y Bionda tiene manos de oro. El masaje de tejido profundo me alivió meses de tensión en la espalda. ¡Gracias!"',
+    events_eyebrow:'Próximos eventos', events_title:'Agenda &<br><em class="italic">Novedades</em>',
+    ev1_title:'Wellness Weekend', ev1_desc:'Dos días de tratamientos a precio especial. Drenaje linfático + reflexología con descuento exclusivo para clientes frecuentes.',
+    ev_soon:'Próximamente — más detalles por Instagram',
+    ev2_title:'Gift Cards de Verano', ev2_desc:'Regala bienestar. Tarjetas de regalo disponibles por mensaje directo o en nuestra cuenta de Instagram.',
+    ev_dm:'Contáctanos en Instagram →',
+    ev3_title:'Clientes VIP', ev3_desc:'A partir de tu 5ª sesión, eres parte de nuestro programa de lealtad. Descuentos, prioridad en agenda y sorpresas especiales.',
+    ev_join:'Únete →',
+    pay_eyebrow:'Métodos de pago & Gift Cards',
+    pay_title:'Fácil, seguro<br><em class="italic">y sin complicaciones</em>',
+    pay_sub:'Aceptamos pagos digitales para tu comodidad. Toca cualquier opción para copiar el usuario.',
+    tap_copy:'Toca para copiar', pay_note:'También aceptamos efectivo en la cita. Para gift cards digitales, contáctenos por Instagram.',
+    contact_eyebrow:'Reserva tu visita a domicilio', contact_title:'Comienza tu<br><em class="italic">viaje hoy</em>',
+    form_name:'Nombre', form_phone:'Teléfono / WhatsApp', form_email:'Email',
+    form_service:'Servicio de interés', form_choose:'— Selecciona —', form_message:'Mensaje (opcional)',
+    form_submit:'Enviar solicitud', form_ok:'✓ Mensaje enviado. Te contactaremos pronto.',
+    faq_eyebrow:'Preguntas frecuentes', faq_title:'Lo que<br><em class="italic">más nos preguntan</em>',
+    q1:'¿Se necesita cita previa?', a1:'Sí, todos nuestros servicios son con cita previa para garantizarte una atención exclusiva y sin esperas. Puedes reservar aquí, por WhatsApp o por Instagram.',
+    q2:'¿Cuánto dura cada sesión?', a2:'Las sesiones duran entre 60 y 90 minutos dependiendo del tratamiento. Al reservar te indicamos el tiempo exacto para que puedas planificar tu día.',
+    q3:'¿El drenaje linfático es doloroso?', a3:'No. El drenaje linfático manual es una técnica de presión muy suave y rítmica. La mayoría de las personas lo encuentran profundamente relajante.',
+    q4:'¿Aceptan tarjeta de crédito?', a4:'Aceptamos Zelle, CashApp, Venmo y efectivo. En este momento no procesamos tarjetas de crédito directamente.',
+    q5:'¿Con cuánta anticipación debo cancelar?', a5:'Pedimos un mínimo de 24 horas de anticipación para cancelaciones o reprogramaciones sin cargo. Entendemos que pueden surgir imprevistos — contáctanos.',
+    info_loc:'Ubicación', info_email:'Email', info_wa:'WhatsApp', wa_chat:'Escríbenos por WhatsApp',
+    footer_tagline:'Spa a domicilio · Servimos Miami, FL y sus alrededores.',
+    footer_nav:'Navegación', footer_contact:'Contacto',
+    footer_hours_note:'Lun–Vie 9am–7pm · Sáb 10am–6pm · Servicio a domicilio',
+    footer_copy:'© 2026 Privé Spa Miami. Todos los derechos reservados.',
+    footer_dev:'Diseño web — Enoc'
+  },
+  en: {
+    logo:'Privé Spa Miami', hero_eyebrow:'Miami, FL · Mobile Spa',
+    hero_title:'We bring wellness<br><em class="italic">to wherever you are</em>',
+    hero_sub:'Your body deserves a pause — we bring it to you.',
+    hero_cta:'Book now', hero_cta2:'View services',
+    scroll_hint:'Scroll',
+    nav_services:'Services', nav_about:'About', nav_gallery:'Gallery',
+    nav_events:'Events', nav_contact:'Contact',
+    mq1:'Lymphatic Drainage', mq2:'Reflexology', mq3:'Relaxation Massage',
+    mq4:'Deep Tissue', mq5:'Wellness & Health', mq6:'Miami, FL',
+    about_eyebrow:'About us',
+    about_title:'A space<br><em class="italic">designed for you</em>',
+    about_p1:'Privé Spa Miami brings wellness directly to you. We don\'t have a fixed location — we travel to your home, hotel, or preferred space so you can enjoy every treatment in the comfort and privacy you deserve.',
+    about_p2:'Our mission is simple: you shouldn\'t have to go anywhere to feel good. With professional therapeutic techniques and fully personalized care, we transform any space into your own private wellness sanctuary.',
+    stat1_label:'Happy clients', stat2_label:'Specialized therapies',
+    about_quote:'"We bring wellness to wherever you are."',
+    services_eyebrow:'Our treatments',
+    services_title:'Four paths<br><em class="italic">to wellbeing</em>',
+    s1_title:'Manual Lymphatic Drainage', s1_desc:'Manual Lymphatic Drainage uses gentle, rhythmic movements to stimulate the lymphatic system, helping your body eliminate toxins, reduce swelling and fluid retention, and boost immune function. Ideal for post-surgery recovery, lymphedema, chronic fatigue, and overall wellness. Results are felt from the very first session.',
+    s2_title:'Reflexology', s2_desc:'Reflexology applies targeted pressure to specific reflex points on the feet and hands that correspond to organs, glands, and systems throughout the body. It relieves stress, improves circulation, restores energetic balance, and activates the body\'s natural healing response — with benefits that go far beyond your feet.',
+    s3_title:'Relaxation Massage', s3_desc:'Our Relaxation Massage blends long, flowing strokes (effleurage) with gentle kneading (petrissage) to melt away tension, lower cortisol levels, and ease the nervous system into a deep state of calm. Perfect for everyday stress, poor sleep, or simply giving yourself the rest you deserve. You\'ll leave feeling truly renewed.',
+    s4_title:'Deep Tissue Massage', s4_desc:'Deep Tissue Massage targets the deeper layers of muscle and connective tissue using slow, firm strokes and sustained pressure. It\'s ideal for chronic muscle tension, sports injuries, neck and back pain, and stiffness. By breaking up adhesions and restoring blood flow, it improves mobility and speeds up muscle recovery.',
+    card_cta:'Book →',
+    hours_eyebrow:'Mobile spa hours',
+    hours_title:'Find your<br><em class="italic">ideal moment</em>',
+    h_mon:'Monday – Friday', h_sat:'Saturday', h_sun:'Sunday', h_appt:'By appointment — we cover Miami & surroundings',
+    hours_cta:'Book now',
+    gallery_eyebrow:'Gallery', gallery_title:'The atmosphere<br><em class="italic">waiting for you</em>',
+    test_eyebrow:'Testimonials',
+    t1:'"Lymphatic drainage changed my life. I feel so much lighter and energized after every session. Absolutely recommended!"',
+    t2:'"Reflexology was an incredible experience. I was amazed by the connection between the feet and the whole body. I already booked my next appointment."',
+    t3:'"The atmosphere is beautiful and Bionda has golden hands. Deep tissue massage relieved months of back tension. Thank you!"',
+    events_eyebrow:'Upcoming events', events_title:'Schedule &<br><em class="italic">News</em>',
+    ev1_title:'Wellness Weekend', ev1_desc:'Two days of treatments at special prices. Lymphatic drainage + reflexology with exclusive discounts for returning clients.',
+    ev_soon:'Coming soon — more details on Instagram',
+    ev2_title:'Summer Gift Cards', ev2_desc:'Gift wellness. Gift cards available via direct message or on our Instagram account.',
+    ev_dm:'Contact us on Instagram →',
+    ev3_title:'VIP Clients', ev3_desc:'Starting from your 5th session, you join our loyalty program. Discounts, scheduling priority, and special surprises.',
+    ev_join:'Join →',
+    pay_eyebrow:'Payment methods & Gift Cards',
+    pay_title:'Easy, secure<br><em class="italic">and hassle-free</em>',
+    pay_sub:'We accept digital payments for your convenience. Tap any option to copy the username.',
+    tap_copy:'Tap to copy', pay_note:'We also accept cash at appointment. For digital gift cards, contact us on Instagram.',
+    contact_eyebrow:'Book your mobile spa visit', contact_title:'Begin your<br><em class="italic">journey today</em>',
+    form_name:'Name', form_phone:'Phone / WhatsApp', form_email:'Email',
+    form_service:'Service of interest', form_choose:'— Select —', form_message:'Message (optional)',
+    form_submit:'Send request', form_ok:'✓ Message sent. We\'ll be in touch soon.',
+    faq_eyebrow:'Frequently asked questions', faq_title:'What<br><em class="italic">you ask us most</em>',
+    q1:'Is an appointment required?', a1:'Yes, all our services require an appointment to guarantee you exclusive, wait-free care. You can book here, via WhatsApp, or on Instagram.',
+    q2:'How long does each session last?', a2:'Sessions last between 60 and 90 minutes depending on the treatment. When booking, we\'ll confirm the exact time so you can plan your day.',
+    q3:'Is lymphatic drainage painful?', a3:'No. Manual lymphatic drainage uses very gentle, rhythmic pressure. Most people find it deeply relaxing.',
+    q4:'Do you accept credit cards?', a4:'We accept Zelle, CashApp, Venmo, and cash. We do not currently process credit cards directly.',
+    q5:'How far in advance should I cancel?', a5:'We ask for at least 24 hours notice for cancellations or rescheduling without charge. We understand unexpected things happen — just reach out.',
+    info_loc:'Location', info_email:'Email', info_wa:'WhatsApp', wa_chat:'Message us on WhatsApp',
+    footer_tagline:'Mobile spa · Serving Miami, FL and surrounding areas.',
+    footer_nav:'Navigation', footer_contact:'Contact',
+    footer_hours_note:'Mon–Fri 9am–7pm · Sat 10am–6pm · Mobile service',
+    footer_copy:'© 2026 Privé Spa Miami. All rights reserved.',
+    footer_dev:'Web design — Enoc'
+  }
+};
+ 
+let currentLang = localStorage.getItem('prive_lang') || 'es';
+ 
+function applyLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('prive_lang', lang);
+  document.documentElement.lang = lang;
+  const t = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  const btnLabel = lang === 'es' ? 'EN' : 'ES';
+  document.querySelectorAll('#lang-btn, #lang-btn-mobile').forEach(b => b.textContent = btnLabel);
+}
+ 
+function toggleLang() { applyLang(currentLang === 'es' ? 'en' : 'es'); }
+applyLang(currentLang);
+ 
+// ────────── NAV SCROLL ──────────
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+ 
+// ────────── MOBILE MENU ──────────
+function toggleMobile() { document.getElementById('mobile-menu').classList.toggle('open'); }
+function closeMobile() { document.getElementById('mobile-menu').classList.remove('open'); }
+ 
+// ────────── HORIZONTAL SCROLL CARDS ──────────
+const track = document.getElementById('cards-track');
+function scrollCards(dir) {
+  const cardW = track.querySelector('.h-scroll-card').offsetWidth + 24;
+  track.scrollBy({ left: dir * cardW, behavior: 'smooth' });
+}
+ 
+// Dots update
+const dots = document.querySelectorAll('.scroll-dot');
+track && track.addEventListener('scroll', () => {
+  const cardW = track.querySelector('.h-scroll-card').offsetWidth + 24;
+  const idx = Math.round(track.scrollLeft / cardW);
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+}, { passive: true });
+ 
+// ────────── REVEAL ON SCROLL ──────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .reveal-left').forEach(el => observer.observe(el));
+ 
+// ────────── FAQ ACCORDION ──────────
+function toggleFaq(btn) {
+  const body = btn.nextElementSibling;
+  const icon = btn.querySelector('.faq-icon');
+  const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+  // Close all
+  document.querySelectorAll('.faq-body').forEach(b => b.style.maxHeight = '0px');
+  document.querySelectorAll('.faq-icon').forEach(i => i.textContent = '+');
+  if (!isOpen) {
+    body.style.maxHeight = body.scrollHeight + 'px';
+    icon.textContent = '−';
+  }
+}
+ 
+// ────────── FORM SUBMIT ──────────
+function submitForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.textContent = currentLang === 'es' ? 'Enviando...' : 'Sending...';
+  btn.disabled = true;
+  setTimeout(() => {
+    e.target.reset();
+    btn.disabled = false;
+    btn.innerHTML = i18n[currentLang]['form_submit'];
+    document.getElementById('form-success').classList.remove('hidden');
+    setTimeout(() => document.getElementById('form-success').classList.add('hidden'), 4000);
+  }, 1200);
+}
+ 
+// ────────── COPY PAYMENT ──────────
+function copyPay(text, method) {
+  navigator.clipboard.writeText(text).catch(() => {});
+  const toast = document.getElementById('toast');
+  toast.textContent = currentLang === 'es'
+    ? `✓ ${method}: "${text}" copiado`
+    : `✓ ${method}: "${text}" copied`;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+ 
+// ────────── SMOOTH SCROLL NAV ──────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+ 
+ 
+// ── STEAM PARTICLES ──
+(function(){
+  var container = document.getElementById('steam-container');
+  var particles = [
+    { left:'28%', size:90,  dur:'4.2s', delay:'0s',    drift:'18px'  },
+    { left:'33%', size:70,  dur:'5.0s', delay:'0.8s',  drift:'-12px' },
+    { left:'38%', size:110, dur:'4.6s', delay:'1.5s',  drift:'22px'  },
+    { left:'42%', size:80,  dur:'3.8s', delay:'0.3s',  drift:'-8px'  },
+    { left:'47%', size:95,  dur:'5.2s', delay:'2.0s',  drift:'15px'  },
+    { left:'52%', size:75,  dur:'4.0s', delay:'1.1s',  drift:'-20px' },
+    { left:'57%', size:100, dur:'4.8s', delay:'0.6s',  drift:'10px'  },
+    { left:'62%', size:65,  dur:'3.6s', delay:'2.4s',  drift:'-15px' },
+    { left:'67%', size:85,  dur:'5.5s', delay:'0.9s',  drift:'25px'  },
+    { left:'72%', size:60,  dur:'4.3s', delay:'1.8s',  drift:'-10px' },
+  ];
+  particles.forEach(function(p){
+    var el = document.createElement('div');
+    el.className = 'steam-particle';
+    el.style.cssText = [
+      'left:'+p.left,
+      'width:'+p.size+'px',
+      'height:'+p.size+'px',
+      '--dur:'+p.dur,
+      '--delay:'+p.delay,
+      '--drift:'+p.drift,
+    ].join(';');
+    container.appendChild(el);
+  });
+})();
+ 
+</script>
+ 
+<!-- ══════════ VIDEO INTRO ══════════ -->
+<div id="vi" style="position:fixed;inset:0;z-index:9999;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;">
+  <img id="vi-logo" src="https://res.cloudinary.com/dd3tduggc/image/upload/v1780692988/transparente_du8gnk.png"
+       alt="Privé Spa Miami"
+       style="height:90px;width:auto;margin-bottom:2.5rem;opacity:0;transition:opacity 1.2s ease;">
+  <div style="width:min(320px,80vw);height:2px;background:#1c1c1c;border-radius:2px;overflow:hidden;margin-bottom:1.4rem;">
+    <div id="vi-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#C5A55A,#D4BB7C);border-radius:2px;"></div>
+  </div>
+  <p id="vi-label" style="font-family:'Manrope',sans-serif;font-size:0.65rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin:0;">Preparando tu experiencia…</p>
+  <button id="vi-skip" onclick="viDone()"
+    style="display:none;position:absolute;bottom:2rem;right:2rem;font-family:'Manrope',sans-serif;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.1);padding:0.4rem 0.9rem;background:transparent;cursor:pointer;">
+    Saltar
+  </button>
+</div>
+ 
+<!-- ══════════ POPUP ══════════ -->
+<div id="pop-ov" style="position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:#FBF7EC;max-width:420px;width:100%;position:relative;padding:2.5rem 2rem 2rem;border-top:3px solid #C5A55A;">
+    <button onclick="document.getElementById('pop-ov').style.display='none'"
+      style="position:absolute;top:0.9rem;right:1.1rem;font-size:1.1rem;color:#6F6A5F;background:none;border:none;cursor:pointer;">✕</button>
+    <p style="font-family:'Manrope',sans-serif;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#8B6E47;margin:0 0 0.5rem;">Oferta especial de bienvenida</p>
+    <h3 style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:300;color:#1B1813;line-height:1.2;margin:0 0 0.6rem;">10% off en<br><em>tu primera visita</em></h3>
+    <p style="font-family:'Manrope',sans-serif;font-size:0.82rem;color:#6F6A5F;margin:0 0 1.4rem;line-height:1.6;">Déjanos tu nombre y número — te contactamos para agendar.</p>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div>
+        <label style="font-family:'Manrope',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:#6F6A5F;display:block;margin-bottom:0.35rem;">Nombre</label>
+        <input id="pop-name" type="text" placeholder="Tu nombre"
+          style="width:100%;border:none;border-bottom:1px solid #C9BEA5;padding:0.6rem 0;font-family:'Manrope',sans-serif;font-size:0.9rem;background:transparent;outline:none;color:#1B1813;">
+      </div>
+      <div>
+        <label style="font-family:'Manrope',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:#6F6A5F;display:block;margin-bottom:0.35rem;">WhatsApp / Teléfono</label>
+        <input id="pop-phone" type="tel" placeholder="+1 (305) 000-0000"
+          style="width:100%;border:none;border-bottom:1px solid #C9BEA5;padding:0.6rem 0;font-family:'Manrope',sans-serif;font-size:0.9rem;background:transparent;outline:none;color:#1B1813;">
+      </div>
+      <button onclick="popSubmit()"
+        style="background:#C5A55A;color:#1B1813;font-family:'Manrope',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:0.9rem;border:none;cursor:pointer;margin-top:0.25rem;">
+        Reclamar mi descuento
+      </button>
+    </div>
+    <p style="font-family:'Manrope',sans-serif;font-size:0.65rem;color:#C9BEA5;margin-top:0.8rem;text-align:center;">Sin compromisos. Te escribimos por WhatsApp.</p>
+    <p id="pop-ok" style="display:none;font-family:'Manrope',sans-serif;font-size:0.85rem;color:#6B7355;text-align:center;margin-top:0.8rem;">✓ ¡Listo! Te contactaremos pronto.</p>
+  </div>
+</div>
+ 
+<script>
+// ═══ VIDEO INTRO ═══
+var _done = false, _pct = 0;
+var _vi    = document.getElementById('vi');
+var _bar   = document.getElementById('vi-bar');
+var _lbl   = document.getElementById('vi-label');
+var _skip  = document.getElementById('vi-skip');
+var _logo  = document.getElementById('vi-logo');
+var _msgs  = ['Preparando tu experiencia…','Cargando bienestar…','Casi listo…'];
+ 
+// logo fade in
+setTimeout(function(){ _logo.style.opacity='1'; }, 150);
+// show skip btn after 1.5s
+setTimeout(function(){ _skip.style.display='block'; }, 1500);
+ 
+var _t = setInterval(function(){
+  _pct += 1.5;
+  _bar.style.width = Math.min(_pct,100) + '%';
+  if(_pct>=34 && _pct<67) _lbl.textContent = _msgs[1];
+  if(_pct>=67)             _lbl.textContent = _msgs[2];
+  if(_pct>=100){ clearInterval(_t); viDone(); }
+}, 40);
+ 
+function viDone(){
+  if(_done) return; _done=true;
+  clearInterval(_t);
+  _vi.style.transition='opacity 0.7s ease';
+  _vi.style.opacity='0';
+  _vi.style.pointerEvents='none';
+  setTimeout(function(){ _vi.style.display='none'; },700);
+  setTimeout(popShow, 3000);
+}
+ 
+// ═══ POPUP ═══
+function popShow(){
+  document.getElementById('pop-ov').style.display='flex';
+}
+function popSubmit(){
+  var n = document.getElementById('pop-name').value.trim();
+  var p = document.getElementById('pop-phone').value.trim();
+  if(!n||!p) return;
+  var msg = encodeURIComponent('Hola Prive Spa! Soy '+n+' y quiero mi 10% de descuento en mi primera visita. Mi numero: '+p);
+  window.open('https://wa.me/13059906211?text='+msg,'_blank');
+  document.getElementById('pop-ok').style.display='block';
+  setTimeout(function(){ document.getElementById('pop-ov').style.display='none'; },2500);
+}
+document.getElementById('pop-ov').addEventListener('click',function(e){
+  if(e.target===this) this.style.display='none';
+});
+</script>
+</body>
+</html>
